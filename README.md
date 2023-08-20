@@ -11,7 +11,7 @@ Have you tried turning it off and on again? Offline Server Auto Restart uses a R
 
 ### Nice to have
 
-- BIOS settings configured to turn on the server when power is restored
+- BIOS settings configured to turn on the server when power is restored (not absolutely necessary as Wake-on-LAN is used, but it's a good failsafe)
 
 ## Usage
 
