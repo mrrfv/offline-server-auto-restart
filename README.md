@@ -1,6 +1,6 @@
 # offline-server-auto-restart
 
-Use a Raspberry Pi and Tapo P100 (or P105) smart plug to automatically power cycle a server that unexpectedly went down.
+Have you tried turning it off and on again? Offline Server Auto Restart uses a Raspberry Pi and Tapo P100 (or P105) smart plug to automatically power cycle a server that unexpectedly went down.
 
 ## Requirements
 
@@ -11,7 +11,7 @@ Use a Raspberry Pi and Tapo P100 (or P105) smart plug to automatically power cyc
 
 ### Nice to have
 
-- BIOS settings configured to power on the server when power is restored
+- BIOS settings configured to turn on the server when power is restored
 
 ## Usage
 
