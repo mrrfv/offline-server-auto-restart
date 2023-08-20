@@ -5,6 +5,8 @@ import { Webhook } from 'webhook-discord';
 import { wake } from 'wol';
 config();
 
+// App status, used for graceful shutdowns
+let app_busy = false;
 // Discord webhook name
 const webhook_name = 'Offline Server Auto Restart';
 
@@ -26,6 +28,8 @@ if (process.env.DISCORD_WEBHOOK_URL) {
 }
 
 async function main() {
+    app_busy = true; // For graceful shutdowns
+
     try {
         console.log(`Checking if port ${port_to_check} is open...`)
         let port_open = false;
@@ -79,9 +83,27 @@ async function main() {
         console.error(`An error occurred: ${e}`);
     }
 
+    app_busy = false; // We're no longer checking or restarting the server
+
     // Check again in 6 minutes. We're using setTimeout instead of setInterval to avoid race conditions
     console.log(`Checking again in 6 minutes.`)
     setTimeout(main, 6 * 60 * 1000);
 }
+
+process.on('SIGINT', (signal) => {
+    console.log("Gracefully shutting down");
+    if (app_busy) {
+        console.log("App is busy, please wait for it to finish before exiting");
+        setInterval(() => {
+            if (!app_busy) {
+                console.log("App is no longer busy, exiting");
+                process.exit(0);
+            }
+        }, 100);
+    } else {
+        console.log("App is not busy, exiting");
+        process.exit(0);
+    }
+})
 
 main();
